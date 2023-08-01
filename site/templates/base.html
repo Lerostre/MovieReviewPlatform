@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!-- saved from url=(0093)https://www.pythonanywhere.com/user/Lerostre2/files/home/Lerostre2/mysite/templates/base.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>W3.CSS Template</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="./W3.CSS Template_files/w3.css">
+<link rel="stylesheet" href="./W3.CSS Template_files/css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
+.w3-bar-block .w3-bar-item {padding:20px}
+textarea{
+  font-size: 20px;
+  width: 100%;
+}
+/* Popup container - can be anything you want */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transition-duration: 0.4s;
+  background-color: #e7e7e7; color: black;
+  border: none;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.popup:hover {
+  background-color: #555555;
+  color: white;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 400px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  top: 125%;
+  left: 14.75%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+
+mark_positive{
+    -webkit-animation: 1s highlight 1s 1 normal forwards;
+    animation: 1s highlight 1s 1 normal forwards;
+    background-color: none;
+    background: linear-gradient(90deg, #4682b4 50%, rgba(255, 255, 255, 0) 50%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+}
+
+mark_mixed{
+    -webkit-animation: 1s highlight 1s 1 normal forwards;
+    animation: 1s highlight 1s 1 normal forwards;
+    background-color: none;
+    background: linear-gradient(90deg, #904979 50%, rgba(255, 255, 255, 0) 50%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+}
+
+mark_negative{
+    -webkit-animation: 1s highlight 1s 1 normal forwards;
+    animation: 1s highlight 1s 1 normal forwards;
+    background-color: none;
+    background: linear-gradient(90deg,  #dc143c 50%, rgba(255, 255, 255, 0) 50%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+}
+
+@-webkit-keyframes highlight {
+    to {
+        background-position: 0 0;
+        color: white
+    }
+}
+
+@keyframes highlight {
+    to {
+        background-position: 0 0;
+        color: white
+    }
+}
+</style>
+<style type="text/css" id="operaUserStyle"></style></head>
+
+<body onload="typeWriter()">{% block content %}
+
+<script>
+  var i = 0;
+  var txt = "Probably the worst film I've ever seen!";
+  var speed = 20;
+
+  function typeWriter() {
+    if (i == 0){
+      document.getElementById("query").innerHTML = ""
+    }
+    if (i < txt.length) {
+      document.getElementById("query").innerHTML += txt.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+</script>
+
+{% if query == " " %}
+
+{% endif %}
+
+{% if query != " " %}
+
+{% endif %}
+
+
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main w3-content w3-padding" style="max-width:1300px;margin-top:-20px">
+
+  <hr id="instructions">
+
+  <!-- Brief description of a webpage -->
+  <div class="w3-container w3-center">
+    <div>
+      <h4><a href="https://www.pythonanywhere.com/user/Lerostre2/files/home/Lerostre2/mysite/templates/base.html" style="text-decoration:none"><b>Movie review sentiment analysis</b></a></h4>
+    </div>
+  </div>
+  <hr>
+
+  <!-- First Photo Grid-->
+  <div class="w3-row-padding w3-padding-8 w3-center" width="100%" id="food">
+      {% if not proba %}
+    <div class="w3-twothird" ,="" style="padding-right: 100px; padding-left: 100px;">
+      <h3>What is this site</h3>
+      <p>This little platform allows you to write any movie review, may it be positive, negative, or something inbetween, and estimate it with the help of an almaighty AI! The model implemented here is quite simple but nonetheless rather competent, see for yourself! For detailed information feel free to consult the repository, it contains Jupyter notebooks and work reports, link is at the bottom.</p>
+      <h3>How to use?</h3>
+      <p>Simply write any review in the form on the right and submit! However, restrict yourself to English language and write in detail, the more the better. The model works relatively fast, due to its simplicity. This instruction will be replaced by a brief summary of how model made its decision.</p>
+    </div>
+      {% endif %}
+      {% if proba %}
+    <div class="w3-twothird">
+      <h3>This text is {{ highlight(sentiment) |safe }} with a certainty of {{proba}}%!</h3>
+      <h5>Word importance overview</h5>
+      <button class="popup" onclick="myFunction()"><i>Click here to find out what importance means!</i>
+        <span class="popuptext" id="myPopup">The model used to make predictions is quite simple. To put it bluntly, it takes each word or their combination, multiplies it by a certain number, i.e. importance, sums it up, and produces a certainty, which can be seen above. It must be noted that word frequency diminishes its importance, even though the graph does not reflect it. The latter is converted to a scale of 10 afterwards. The sentiment is taken as follows: 1-4: negative, 5-6: mixed, 7-10: positive, as proposed in the article at the bottom of the page.</span>
+      </button>
+      {% include 'temp.html' %}
+
+      <script>
+      // When the user clicks on div, open the popup
+      function myFunction() {
+        var popup = document.getElementById("myPopup");
+        popup.classList.toggle("show");
+      }
+      </script>
+    </div>
+      {% endif %}
+    <div class="w3-third">
+        <h3>Review form</h3>
+        <form method="post">
+          <textarea name="query" id="query" class="form-control" rows="20%" cols="60%" placeholder="Review" required="True">Probably the worst film I've ever seen!</textarea>
+          <button class="w3-button w3-block w3-ripple w3-dark-grey">Submit</button>
+        </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="w3-row-padding w3-padding-8">
+    <div class="w3-third">
+      <h3>Article</h3>
+      <a href="https://ai.stanford.edu/~amaas/papers/wvSent_acl2011.pdf" target="_blank"></a><p><a href="https://ai.stanford.edu/~amaas/papers/wvSent_acl2011.pdf" target="_blank">Learning Word Vectors for Sentiment Analysis
+</a></p>
+    </div>
+
+    <div class="w3-third">
+      <h3></h3>
+    </div>
+
+    <div class="w3-third w3-serif">
+      <p></p>
+      <a href="https://github.com/Lerostre/lerostre.github.io" target="_blank">
+        <img style=" height: 30px; width: auto;" src="./W3.CSS Template_files/{{ url_for(&#39;static&#39;,filename=" pics="" git.png")="" }}"="">
+      </a>
+      <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+    </div>
+  </footer>
+
+<!-- End page content -->
+</div>
+
+
+
+{% endblock %}
+
+</body></html>
